@@ -3,7 +3,7 @@ class Productos {
     this.productosDeseados = [
       parseInt(
         prompt(
-          "Elija el producto que desea agregar al carrito de compras:\n1 - Remera de Warrios USD$50.\n2 - Remera de Lakers USD$50.\n3 - Remera de Spurs USD$50."
+          "Elija el producto que desea agregar al carrito de compras:\n1 - Remera de Warrios USD$50.\n2 - Remera de Lakers USD$50.\n3 - Remera de Spurs USD$50.\nIngrese 0 para finalizar la compra."
         )
       ),
     ];
@@ -12,36 +12,46 @@ class Productos {
   agregarAlCarrito() {
     let nuevoProducto = parseInt(
       prompt(
-        "Elija el producto que desea agregar al carrito de compras:\n1 - Remera de Warrios USD$50.\n2 - Remera de Lakers USD$50.\n3 - Remera de Spurs USD$50."
+        "Elija el producto que desea agregar al carrito de compras:\n1 - Remera de Warrios USD$50.\n2 - Remera de Lakers USD$50.\n3 - Remera de Spurs USD$50.\nIngrese 0 para finalizar la compra."
       )
     );
-    while (nuevoProducto !== 0) {
-      if (nuevoProducto > 0 && nuevoProducto <= 3) {
-        this.productosDeseados.push(nuevoProducto);
-        nuevoProducto = parseInt(
-          prompt(
-            "Elija el producto que desea agregar al carrito de compras:\n1 - Remera de Warrios USD$50.\n2 - Remera de Lakers USD$50.\n3 - Remera de Spurs USD$50."
-          )
-        );
-      } else {
-        alert("Producto Inexistente.");
-        nuevoProducto = parseInt(
-          prompt(
-            "Elija el producto que desea agregar al carrito de compras:\n1 - Remera de Warrios USD$50.\n2 - Remera de Lakers USD$50.\n3 - Remera de Spurs USD$50."
-          )
-        );
+    if (this.productosDeseados.length > 0 && this.productosDeseados !== 0) {
+      while (nuevoProducto !== 0) {
+        if (nuevoProducto > 0 && nuevoProducto <= 3) {
+          this.productosDeseados.push(nuevoProducto);
+          nuevoProducto = parseInt(
+            prompt(
+              "Elija el producto que desea agregar al carrito de compras:\n1 - Remera de Warrios USD$50.\n2 - Remera de Lakers USD$50.\n3 - Remera de Spurs USD$50.\nIngrese 0 para finalizar la compra."
+            )
+          );
+        } else {
+          alert("Producto Inexistente.");
+          nuevoProducto = parseInt(
+            prompt(
+              "Elija el producto que desea agregar al carrito de compras:\n1 - Remera de Warrios USD$50.\n2 - Remera de Lakers USD$50.\n3 - Remera de Spurs USD$50.\nIngrese 0 para finalizar la compra."
+            )
+          );
+        }
       }
     }
     console.log("Carrito: ", this.productosDeseados);
   }
 
   eliminarDelCarrito() {
-    let productoEliminado = parseInt(
-      prompt(
-        "Elija el producto que desea eliminar:\n1 - Remera de Warrios.\n2 - Remera de Lakers.\n3 - Remera de Spurs"
-      )
-    );
-    this.productosDeseados.splice(productoEliminado - 1, 1);
+    let eliminar = confirm("Desea eliminar un producto?");
+
+    while (eliminar) {
+      let productoAEliminar = parseInt(
+        prompt(
+          `Tu carrito: ${this.productosDeseados}\nIngrese el numero de producto que desea eliminar`
+        )
+      );
+      this.productosDeseados.splice(
+        this.productosDeseados.indexOf(productoAEliminar),
+        1
+      );
+      eliminar = confirm("Desea eliminar un producto?");
+    }
     console.log(this.productosDeseados);
   }
 
