@@ -1,21 +1,66 @@
 * {
   margin: 0;
   padding: 0;
-  font-family: Impact, Haettenschweiler, "Arial Narrow Bold", sans-serif;
+}
+
+body {
+  background-color: #555;
 }
 
 .main__title {
   text-align: center;
   font-size: 2.75em;
   margin: 1rem;
+  color: #fff;
+  font-family: Impact, Haettenschweiler, "Arial Narrow Bold", sans-serif;
 }
 
 .shop__section {
-  margin: 4rem 1rem;
+  margin: 4rem 4rem 4rem 4rem;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
 }
 
-.shop__product {
+.shop__prod {
   display: flex;
   justify-content: center;
+  flex-direction: column;
   align-items: center;
+  color: #fff;
+}
+
+.botonAgregar {
+  border: none;
+  padding: 0.5rem;
+  border-radius: 15px;
+  cursor: pointer;
+  color: #fff;
+  background-color: #66f;
+  margin-top: 1rem;
+  max-width: 50%;
+}
+
+.botonEliminar,
+.botonComprar {
+  border: none;
+  padding: 0.5rem;
+  border-radius: 15px;
+  cursor: pointer;
+  color: #fff;
+  background-color: #66f;
+  margin-bottom: 0.5rem;
+}
+
+.precioTotal {
+  font-weight: 600;
+}
+
+.prod__title {
+  font-weight: 500;
+}
+
+#carrito {
+  margin: 4rem;
+  color: #fff;
 }
