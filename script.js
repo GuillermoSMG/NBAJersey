@@ -4,21 +4,29 @@ const botonCarrito = document.getElementById("botonCarrito");
 const miCompra = document.getElementById("comprar");
 
 let stock = [
-  { id: 1, nombre: "Remera de Golden State Warriors", precio: 50 },
-  { id: 2, nombre: "Remera de San Antonio Spurs", precio: 35 },
-  { id: 3, nombre: "Remera de Los Angeles Lakers", precio: 45 },
-  { id: 4, nombre: "Remera de New Orleans Pelicans", precio: 35 },
-  { id: 5, nombre: "Remera de Los Angeles Clippers", precio: 45 },
+  { id: 1, nombre: "Remera de Golden State Warriors", precio: 50, cantidad: 1 },
+  { id: 2, nombre: "Remera de San Antonio Spurs", precio: 35, cantidad: 1 },
+  { id: 3, nombre: "Remera de Los Angeles Lakers", precio: 45, cantidad: 1 },
+  { id: 4, nombre: "Remera de New Orleans Pelicans", precio: 35, cantidad: 1 },
+  { id: 5, nombre: "Remera de Los Angeles Clippers", precio: 45, cantidad: 1 },
 ];
 
 let carrito = JSON.parse(localStorage.getItem("item")) || [];
 let precioTotal = JSON.parse(localStorage.getItem("precio")) || null;
 
 stock.forEach((prod) => {
+  /* Creación de los artículos de la tienda */
   const div = document.createElement("div");
-  div.classList.add("shop__prod");
+  div.classList.add(
+    "border",
+    "d-flex",
+    "justify-content-center",
+    "align-items-center",
+    "flex-column",
+    "col-4"
+  );
   div.innerHTML = `
-  <h3 class="prod__title">${prod.nombre}</h3>
+  <h4 class="fw-semibold">${prod.nombre}</h4>
   <p>Precio: USD$${prod.precio}</p>
   <button id="agregar${prod.id}" class="botonAgregar">Agregar Al Carrito</button>
   `;
@@ -27,23 +35,40 @@ stock.forEach((prod) => {
 
   const boton = document.getElementById(`agregar${prod.id}`);
 
+  /* Agregar artículo al carrito */
   boton.addEventListener("click", (event) => {
     agregarAlCarrito(prod.id);
+    agregado(prod.nombre);
   });
 });
 
 const agregarAlCarrito = (prodId) => {
-  const item = stock.find((prod) => prod.id === prodId);
-  carrito.push(item);
-  precioTotal += item.precio;
+  const existe = carrito.some((prod) => prod.id === prodId);
+
+  if (existe) {
+    /* Si el producto ya existe en el carrito se suma 1 a la cantidad */
+    const prod = carrito.map((prod) => {
+      if (prod.id === prodId) {
+        prod.cantidad++;
+        precioTotal += prod.precio;
+      }
+    });
+  } else {
+    /* Si el producto no existe en el carrito se agrega directamente con cantidad 1 */
+    const item = stock.find((prod) => prod.id === prodId);
+    precioTotal += item.precio;
+    carrito.push(item);
+  }
   guardarPrecio();
   guardarCarrito();
   mostrarCarrito();
 };
 
+/* Guardar precio en Local Storage */
 const guardarPrecio = () =>
   localStorage.setItem("precio", JSON.stringify(precioTotal));
 
+/* Guardar carrito en Local Storage */
 const guardarCarrito = () =>
   localStorage.setItem("item", JSON.stringify(carrito));
 
@@ -51,32 +76,37 @@ const mostrarCarrito = () => {
   if (carrito.length > 0) {
     miCarrito.innerHTML = "";
     carrito.forEach((prod) => {
+      /* Crear los artículos en la sección carrito */
       const div = document.createElement("div");
+      div.classList.add("p-4");
       div.innerHTML = `
-      <p>${prod.nombre}</p>
+      <p class="fw-bold">${prod.nombre}</p>
       <p>Precio: ${prod.precio}</p>
+      <p>Cantidad: ${prod.cantidad}</p>
       <button class="botonEliminar" onclick="eliminarDelCarrito(${prod.id})">Eliminar del carrito</button>
       `;
       miCarrito.appendChild(div);
     });
-    miCarrito.innerHTML += `
+    miCarrito.innerHTML += `<div class="w-100 d-flex justify-content-center align-items-center p-3">
       <p class="precioTotal">Precio total: USD$${precioTotal}</p>
       <button onclick="finalizarCompra(${precioTotal})" class="botonComprar">Comprar</button>
-      `;
+      </div>`;
   } else {
     miCarrito.innerHTML = "";
     miCarrito.innerHTML += `
     <p class="precioTotal">Su carrito se encuentra vacío.</p>
     `;
   }
+  botonCarrito.innerHTML = "Carrito";
+  botonCarrito.innerHTML += `\t${carrito.length}`;
 };
 
 const finalizarCompra = (precioTotal) => {
   let cuotas;
   let metodoDePago;
 
-  miCompra.classList.toggle("carritoNone");
-  miCompra.classList.toggle("carritoShow");
+  miCompra.classList.toggle("d-none");
+  miCompra.classList.toggle("d-flex");
 
   miCompra.innerHTML = `
   <h4>Elija el método de pago de su preferencia:</h4>
@@ -94,9 +124,13 @@ const finalizarCompra = (precioTotal) => {
     event.preventDefault();
     metodoDePago = document.getElementById("metodoPago").value;
     miCompra.innerHTML = "";
+
     if (metodoDePago === "efectivo") {
+      /* Método de pago en efectivo */
       miCompra.innerHTML += `<p>El Total a pagar es de: USD$${precioTotal}</p>`;
     } else if (metodoDePago === "tarjetaDeCredito") {
+      /* Método de tarjeta de crédito */
+      /* Elección de cuotas */
       miCompra.innerHTML += `
       <select name="cantidadCuotas" id="cantidadCuotas">
       <option value="4">4 Cuotas</option>
@@ -117,6 +151,8 @@ const finalizarCompra = (precioTotal) => {
         `;
       });
     } else if (metodoDePago === "tarjetaDeDebito") {
+      /* Método de pago tarjeta de débito */
+      /* Descuentos pertinentes */
       miCompra.innerHTML += `Al pagar con tarjeta de débito se le realizará un descuento del 25% por lo que el total a pagar es de: USD$${
         precioTotal - precioTotal / 4
       }`;
@@ -127,8 +163,17 @@ const finalizarCompra = (precioTotal) => {
 const eliminarDelCarrito = (prodId) => {
   const item = carrito.find((prod) => prod.id === prodId);
   let indice = carrito.indexOf(item);
-  carrito.splice(indice, 1);
-  precioTotal -= item.precio;
+
+  /* Si la cantidad del artículo a borrar es > 1, se le resta 1 a la cantidad */
+  if (item.cantidad > 1) {
+    item.cantidad--;
+    precioTotal -= item.precio;
+  } else {
+    /* Si la cantidad del producto a eliminar es = 1, se elimina directamente */
+    carrito.splice(indice, 1);
+    precioTotal -= item.precio;
+  }
+  eliminado(item.nombre);
   guardarPrecio();
   guardarCarrito();
   mostrarCarrito();
@@ -139,8 +184,29 @@ document.addEventListener("DOMContentLoaded", (event) => {
 });
 
 botonCarrito.addEventListener("click", (event) => {
-  miCarrito.classList.toggle("carritoNone");
-  miCarrito.classList.toggle("carritoShow");
-  miCompra.classList.remove("carritoShow");
-  miCompra.classList.add("carritoNone");
+  miCarrito.classList.toggle("d-none");
+  miCarrito.classList.toggle("d-flex");
+  miCompra.classList.remove("d-flex");
+  miCompra.classList.add("d-none");
 });
+
+/* Incorporación de Toastify JS */
+/* Al agregar al carrito */
+function agregado(prodName) {
+  Toastify({
+    text: `${prodName} se ha agregado al carrito.`,
+    time: 1000,
+  }).showToast();
+}
+
+/* Al eliminar del carrito */
+function eliminado(prodName) {
+  Toastify({
+    text: `${prodName} se ha elimiado del carrito.`,
+    time: 1000,
+    style: {
+      background:
+        "linear-gradient(270deg, rgba(255,0,0,1) 23%, rgba(255,101,101,1) 80%)",
+    },
+  }).showToast();
+}

@@ -4,40 +4,20 @@
   box-sizing: border-box;
 }
 
-body {
-  background-color: #555;
-}
-
 .main__title {
   text-align: center;
   font-size: 2.75em;
-  margin: 1rem;
-  color: #fff;
+  padding: 1rem;
   font-family: Impact, Haettenschweiler, "Arial Narrow Bold", sans-serif;
-}
-
-.shop__section {
-  margin: 4rem 4rem 4rem 4rem;
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 2rem;
-}
-
-.shop__prod {
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
-  align-items: center;
-  color: #fff;
+  border-bottom: 1px solid #efefef;
+  box-shadow: 0 0 20px #efefef;
 }
 
 .botonCarrito {
-  color: #fff;
   font-size: 1.5em;
   cursor: pointer;
   border-bottom: 1px solid transparent;
   max-width: 150px;
-  align-content: flex-end;
   text-align: center;
 }
 
@@ -71,23 +51,4 @@ body {
 .precioTotal {
   font-weight: 600;
   margin-top: 1rem;
-}
-
-.prod__title {
-  font-weight: 500;
-}
-
-.carritoShow {
-  background-color: #666;
-  color: #fff;
-  display: flex;
-  flex-direction: column;
-  padding: 2rem;
-  align-items: center;
-  max-width: 60vw;
-  overflow-y: auto;
-}
-
-.carritoNone {
-  display: none;
 }
