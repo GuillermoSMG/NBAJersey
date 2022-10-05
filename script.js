@@ -6,9 +6,9 @@ const miCompra = document.getElementById("comprar");
 document.addEventListener("DOMContentLoaded", async () => {
   let productosProm = await fetch("./stock.json");
   let productosJson = await productosProm.json();
-  let prod = productosJson.productos;
+  let productos = productosJson.productos;
 
-  prod.forEach((prod) => {
+  productos.forEach((prod) => {
     const div = document.createElement("div");
     div.classList.add(
       "border",
@@ -33,33 +33,33 @@ document.addEventListener("DOMContentLoaded", async () => {
       agregarAlCarrito(prod.id);
       agregado(prod.nombre);
     });
+
+    const agregarAlCarrito = (prodId) => {
+      const existe = carrito.some((prod) => prod.id === prodId);
+
+      if (existe) {
+        /* Si el producto ya existe en el carrito se suma 1 a la cantidad */
+        const prod = carrito.map((prod) => {
+          if (prod.id === prodId) {
+            prod.cantidad++;
+            precioTotal += prod.precio;
+          }
+        });
+      } else {
+        /* Si el producto no existe en el carrito se agrega directamente con cantidad 1 */
+        const item = productos.find((prod) => prod.id === prodId);
+        precioTotal += item.precio;
+        carrito.push(item);
+      }
+      guardarPrecio();
+      guardarCarrito();
+      mostrarCarrito();
+    };
   });
 });
 
 let carrito = JSON.parse(localStorage.getItem("item")) || [];
 let precioTotal = JSON.parse(localStorage.getItem("precio")) || null;
-
-const agregarAlCarrito = (prodId) => {
-  const existe = carrito.some((prod) => prod.id === prodId);
-
-  if (existe) {
-    /* Si el producto ya existe en el carrito se suma 1 a la cantidad */
-    const prod = carrito.map((prod) => {
-      if (prod.id === prodId) {
-        prod.cantidad++;
-        precioTotal += prod.precio;
-      }
-    });
-  } else {
-    /* Si el producto no existe en el carrito se agrega directamente con cantidad 1 */
-    const item = stock.find((prod) => prod.id === prodId);
-    precioTotal += item.precio;
-    carrito.push(item);
-  }
-  guardarPrecio();
-  guardarCarrito();
-  mostrarCarrito();
-};
 
 /* Guardar precio en Local Storage */
 const guardarPrecio = () =>
