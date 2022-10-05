@@ -1,0 +1,8 @@
+{"productos" :[
+        {"id":1,"nombre":"Remera de Golden State Warriors","precio":50,"cantidad":1},
+        {"id":2,"nombre":"Remera de San Antonio Spurs","precio":35,"cantidad":1},
+        {"id":3,"nombre":"Remera de Los Angeles Lakers","precio":45,"cantidad":1},
+        {"id":4,"nombre":"Remera de New Orleans Pelicans","precio":35,"cantidad":1},
+        {"id":5,"nombre":"Remera de Los Angeles Clippers","precio":45,"cantidad":1}
+    ]
+}
