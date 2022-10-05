@@ -3,44 +3,41 @@ const miCarrito = document.getElementById("carrito");
 const botonCarrito = document.getElementById("botonCarrito");
 const miCompra = document.getElementById("comprar");
 
-let stock = [
-  { id: 1, nombre: "Remera de Golden State Warriors", precio: 50, cantidad: 1 },
-  { id: 2, nombre: "Remera de San Antonio Spurs", precio: 35, cantidad: 1 },
-  { id: 3, nombre: "Remera de Los Angeles Lakers", precio: 45, cantidad: 1 },
-  { id: 4, nombre: "Remera de New Orleans Pelicans", precio: 35, cantidad: 1 },
-  { id: 5, nombre: "Remera de Los Angeles Clippers", precio: 45, cantidad: 1 },
-];
+document.addEventListener("DOMContentLoaded", async () => {
+  let productosProm = await fetch("./stock.json");
+  let productosJson = await productosProm.json();
+  let prod = productosJson.productos;
+
+  prod.forEach((prod) => {
+    const div = document.createElement("div");
+    div.classList.add(
+      "border",
+      "d-flex",
+      "justify-content-center",
+      "align-items-center",
+      "flex-column",
+      "col-4"
+    );
+    div.innerHTML = `
+          <h4 class="fw-semibold">${prod.nombre}</h4>
+          <p>Precio: USD$${prod.precio}</p>
+          <button id="agregar${prod.id}" class="botonAgregar">Agregar Al Carrito</button>
+    `;
+
+    tienda.appendChild(div);
+
+    const boton = document.getElementById(`agregar${prod.id}`);
+
+    /* Agregar artículo al carrito */
+    boton.addEventListener("click", (event) => {
+      agregarAlCarrito(prod.id);
+      agregado(prod.nombre);
+    });
+  });
+});
 
 let carrito = JSON.parse(localStorage.getItem("item")) || [];
 let precioTotal = JSON.parse(localStorage.getItem("precio")) || null;
-
-stock.forEach((prod) => {
-  /* Creación de los artículos de la tienda */
-  const div = document.createElement("div");
-  div.classList.add(
-    "border",
-    "d-flex",
-    "justify-content-center",
-    "align-items-center",
-    "flex-column",
-    "col-4"
-  );
-  div.innerHTML = `
-  <h4 class="fw-semibold">${prod.nombre}</h4>
-  <p>Precio: USD$${prod.precio}</p>
-  <button id="agregar${prod.id}" class="botonAgregar">Agregar Al Carrito</button>
-  `;
-
-  tienda.appendChild(div);
-
-  const boton = document.getElementById(`agregar${prod.id}`);
-
-  /* Agregar artículo al carrito */
-  boton.addEventListener("click", (event) => {
-    agregarAlCarrito(prod.id);
-    agregado(prod.nombre);
-  });
-});
 
 const agregarAlCarrito = (prodId) => {
   const existe = carrito.some((prod) => prod.id === prodId);
@@ -178,10 +175,6 @@ const eliminarDelCarrito = (prodId) => {
   guardarCarrito();
   mostrarCarrito();
 };
-
-document.addEventListener("DOMContentLoaded", (event) => {
-  mostrarCarrito();
-});
 
 botonCarrito.addEventListener("click", (event) => {
   miCarrito.classList.toggle("d-none");
