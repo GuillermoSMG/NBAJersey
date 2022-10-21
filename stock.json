@@ -1,8 +1,12 @@
 {"productos" :[
-        {"id":1,"nombre":"Remera de Golden State Warriors","precio":50,"cantidad":1},
-        {"id":2,"nombre":"Remera de San Antonio Spurs","precio":35,"cantidad":1},
-        {"id":3,"nombre":"Remera de Los Angeles Lakers","precio":45,"cantidad":1},
-        {"id":4,"nombre":"Remera de New Orleans Pelicans","precio":35,"cantidad":1},
-        {"id":5,"nombre":"Remera de Los Angeles Clippers","precio":45,"cantidad":1}
-    ]
+        {"id":1,"nombre":"Remera de Golden State Warriors","precio":50,"cantidad":1, "image": "https://fanatics.frgimages.com/golden-state-warriors/unisex-nike-stephen-curry-white-golden-state-warriors-2022/23-swingman-jersey-association-edition_pi4650000_altimages_ff_4650305-5a3789c93b773e1b33efalt2_full.jpg?_hv=2&w=120" },
+        {"id":2,"nombre":"Remera de San Antonio Spurs","precio":35,"cantidad":1, "image": "https://fanatics.frgimages.com/san-antonio-spurs/mens-mitchell-and-ness-manu-ginobili-black-san-antonio-spurs-2002-03-hardwood-classics-player-swingman-jersey_pi4380000_altimages_ff_4380691-c499cfffc426871bc4faalt2_full.jpg?_hv=2&w=120"},
+        {"id":3,"nombre":"Remera de Los Angeles Lakers","precio":45,"cantidad":1, "image": "https://fanatics.frgimages.com/los-angeles-lakers/mens-nike-lebron-james-gold-los-angeles-lakers-2021/22-number-6-swingman-player-jersey-icon-edition_pi4375000_altimages_ff_4375583-dc0fb54e7b3d14c59776alt2_full.jpg?_hv=2&w=120"},
+        {"id":4,"nombre":"Remera de New Orleans Pelicans","precio":35,"cantidad":1, "image": "https://fanatics.frgimages.com/new-orleans-pelicans/mens-fanatics-branded-zion-williamson-white-new-orleans-pelicans-2021/22-fast-break-replica-jersey-city-edition_pi4198000_altimages_ff_4198852-7e7d31ffd42c10b121cbalt2_full.jpg?_hv=2&w=120"},
+        {"id":5,"nombre":"Remera de Los Angeles Clippers","precio":45,"cantidad":1, "image": "https://fanatics.frgimages.com/la-clippers/mens-fanatics-branded-kawhi-leonard-black-la-clippers-2021/22-fast-break-replica-player-jersey-statement-edition_pi4793000_altimages_ff_4793093-0a54169cd91462ea68dcalt2_full.jpg?_hv=2&w=120"},
+        {"id":6,"nombre":"Remera de Milwakee Bucks","precio":45,"cantidad":1, "image": "https://fanatics.frgimages.com/milwaukee-bucks/mens-fanatics-branded-antetokounmpo-green-milwaukee-bucks-fast-break-replica-player-jersey-icon-edition_pi3003000_altimages_ff_3003547alt2_full.jpg?_hv=2&w=120"},
+        {"id":7,"nombre":"Remera de Miami Heat","precio":35,"cantidad":1, "image": "https://fanatics.frgimages.com/miami-heat/mens-fanatics-branded-jimmy-butler-white-miami-heat-fast-break-replica-player-jersey-association-edition_pi3662000_altimages_ff_3662255-4ac1d66f420aae3ad196alt2_full.jpg?_hv=2&w=120"},
+        {"id":8,"nombre":"Remera de Boston Celtics","precio":50,"cantidad":1, "image": "https://fanatics.frgimages.com/boston-celtics/unisex-nike-jayson-tatum-kelly-green-boston-celtics-2022/23-swingman-jersey-icon-edition_pi4650000_altimages_ff_4650391-20e3b038ad7098229d53alt2_full.jpg?_hv=2&w=120"},
+        {"id":9,"nombre":"Remera de Toronto Raptors","precio":30,"cantidad":1, "image": "https://fanatics.frgimages.com/toronto-raptors/mens-mitchell-and-ness-vince-carter-purple-toronto-raptors-1998-99-hardwood-classics-swingman-jersey_pi2751000_altimages_ff_2751385alt2_full.jpg?_hv=2&w=120"}
+        ]
 }

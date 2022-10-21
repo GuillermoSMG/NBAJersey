@@ -20,6 +20,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     );
     div.innerHTML = `
           <h4 class="fw-semibold">${prod.nombre}</h4>
+          <img src=${prod.image}>
           <p>Precio: USD$${prod.precio}</p>
           <button id="agregar${prod.id}" class="botonAgregar">Agregar Al Carrito</button>
     `;
@@ -55,6 +56,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       guardarCarrito();
       mostrarCarrito();
     };
+    mostrarCarrito();
   });
 });
 
@@ -78,7 +80,7 @@ const mostrarCarrito = () => {
       div.classList.add("p-4");
       div.innerHTML = `
       <p class="fw-bold">${prod.nombre}</p>
-      <p>Precio: ${prod.precio}</p>
+      <p>Precio: USD$${prod.precio}</p>
       <p>Cantidad: ${prod.cantidad}</p>
       <button class="botonEliminar" onclick="eliminarDelCarrito(${prod.id})">Eliminar del carrito</button>
       `;
@@ -125,6 +127,7 @@ const finalizarCompra = (precioTotal) => {
     if (metodoDePago === "efectivo") {
       /* Método de pago en efectivo */
       miCompra.innerHTML += `<p>El Total a pagar es de: USD$${precioTotal}</p>`;
+      miCompra.innerHTML += `<button id="confirmacion">Confirmar<button>`;
     } else if (metodoDePago === "tarjetaDeCredito") {
       /* Método de tarjeta de crédito */
       /* Elección de cuotas */
@@ -146,6 +149,11 @@ const finalizarCompra = (precioTotal) => {
           precioTotal / cuotas
         }</p>
         `;
+        miCompra.innerHTML += `<button id="confirmacion">Confirmar<button>`;
+        const confirmacion = document.getElementById("confirmacion");
+        confirmacion.addEventListener("click", () => {
+          miCompra.innerHTML = "¡Gracias por su compra!";
+        });
       });
     } else if (metodoDePago === "tarjetaDeDebito") {
       /* Método de pago tarjeta de débito */
@@ -153,7 +161,13 @@ const finalizarCompra = (precioTotal) => {
       miCompra.innerHTML += `Al pagar con tarjeta de débito se le realizará un descuento del 25% por lo que el total a pagar es de: USD$${
         precioTotal - precioTotal / 4
       }`;
+      miCompra.innerHTML += `<button id="confirmacion">Confirmar<button>`;
     }
+
+    const confirmacion = document.getElementById("confirmacion");
+    confirmacion.addEventListener("click", () => {
+      miCompra.innerHTML = "¡Gracias por su compra!";
+    });
   });
 };
 
